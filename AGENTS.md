@@ -13,13 +13,12 @@
 - 安装依赖、运行项目、测试、检查、构建和打包必须在 Windows 上执行。
 - Python、uv、pytest、pnpm、npm、Node.js、Cargo、Rust、Tauri、FFmpeg 等项目
   命令，统一由 WSL 调用 `pwsh.exe` 执行。
-- 进入项目目录时，先在 WSL 中动态获取仓库根目录并使用 `wslpath -w` 转换为
-  Windows 路径；不得在 PowerShell 命令中使用 `/mnt/c/...` 路径或写死项目路径。
+- PowerShell 中使用当前仓库的实际 Windows 路径，不得使用 `/mnt/c/...` 路径。
+  实际调用时直接写入该路径；本文档不记录特定设备上的路径。
 - Windows 命令不可用或执行失败时，直接报告，不得改用 WSL 版本。
 
 通用调用方式：
 
 ```bash
-project_root="$(wslpath -w "$(git rev-parse --show-toplevel)")"
-pwsh.exe -NoLogo -NoProfile -WorkingDirectory "$project_root" -Command '$ErrorActionPreference = "Stop"; $PSNativeCommandUseErrorActionPreference = $true; <command>'
+pwsh.exe -NoLogo -NoProfile -WorkingDirectory "<仓库的 Windows 路径>" -Command '$ErrorActionPreference = "Stop"; $PSNativeCommandUseErrorActionPreference = $true; <command>'
 ```
