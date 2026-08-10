@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  windows-release:
+    name: Windows x64 Release
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Build, test, and install
+        shell: cmd
+        run: |
+          for /f "usebackq delims=" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VS_PATH=%%i"
+          if not defined VS_PATH exit /b 1
+          call "%VS_PATH%\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
+          cmake --workflow --preset windows-release || exit /b 1
+          cmake --install build/windows-release || exit /b 1
+
+      - name: Upload Windows package
+        uses: actions/upload-artifact@v7
+        with:
+          name: dxgi_gpu_enum-windows-x64-release
+          path: dist/windows-release

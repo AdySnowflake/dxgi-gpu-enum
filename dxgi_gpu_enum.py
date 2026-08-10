@@ -149,8 +149,21 @@ def _candidate_dll_paths() -> list[Path]:
     paths.extend(
         [
             module_directory / "dxgi_gpu_enum.dll",
-            module_directory / "build" / "Release" / "dxgi_gpu_enum.dll",
-            module_directory / "build" / "Debug" / "dxgi_gpu_enum.dll",
+            module_directory
+            / "build"
+            / "windows-release"
+            / "bin"
+            / "dxgi_gpu_enum.dll",
+            module_directory
+            / "build"
+            / "windows-debug"
+            / "bin"
+            / "dxgi_gpu_enum.dll",
+            module_directory
+            / "dist"
+            / "windows-release"
+            / "bin"
+            / "dxgi_gpu_enum.dll",
             Path(sys.executable).resolve().parent / "dxgi_gpu_enum.dll",
         ]
     )
