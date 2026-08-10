@@ -133,4 +133,3 @@ install(
         "${CMAKE_CURRENT_BINARY_DIR}/dxgi_gpu_enumConfigVersion.cmake"
     DESTINATION "${dxgi_gpu_enum_cmake_directory}"
 )
-

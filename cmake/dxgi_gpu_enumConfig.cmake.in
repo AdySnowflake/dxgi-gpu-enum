@@ -3,4 +3,3 @@
 include("${CMAKE_CURRENT_LIST_DIR}/dxgi_gpu_enumTargets.cmake")
 
 check_required_components(dxgi_gpu_enum)
-

@@ -20,4 +20,3 @@ add_custom_command(
         "$<TARGET_FILE_DIR:dxgi_gpu_enum_example>"
     VERBATIM
 )
-
